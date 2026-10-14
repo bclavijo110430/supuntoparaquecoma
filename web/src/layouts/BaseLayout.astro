@@ -1,0 +1,74 @@
+---
+import "../styles/global.css";
+import { negocio } from "../data/menu";
+
+interface Props {
+  titulo?: string;
+  descripcion?: string;
+}
+
+const {
+  titulo = `${negocio.nombre} — Arepas y comida paisa`,
+  descripcion = negocio.descripcion,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="theme-color" content="#ffe500" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="saltar-enlace" href="#menu">Saltar al menú</a>
+    <slot />
+
+    <script is:inline>
+      (() => {
+        const header = document.querySelector("header.cabecera, header.carta-bar");
+        const nav = document.querySelector(".menu__nav");
+        const root = document.documentElement;
+
+        const medir = () => {
+          if (header) {
+            root.style.setProperty(
+              "--alto-cabecera",
+              `${header.offsetHeight}px`,
+            );
+          }
+          if (nav) {
+            root.style.setProperty(
+              "--alto-menu-nav",
+              `${nav.offsetHeight}px`,
+            );
+          }
+        };
+
+        medir();
+        window.addEventListener("resize", medir);
+        window.addEventListener("load", medir);
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(medir);
+        }
+        if ("ResizeObserver" in window) {
+          const ro = new ResizeObserver(medir);
+          if (header) ro.observe(header);
+          if (nav) ro.observe(nav);
+        }
+      })();
+    </script>
+  </body>
+</html>

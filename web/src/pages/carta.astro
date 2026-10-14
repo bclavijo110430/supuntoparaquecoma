@@ -1,0 +1,183 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import { negocio } from "../data/menu";
+
+const base = import.meta.env.BASE_URL;
+const pdf = `${base}carta/carta.pdf`;
+const paginas = [
+  { src: `${base}carta/pagina-1.webp`, alt: "Primera página de la carta" },
+  { src: `${base}carta/pagina-2.webp`, alt: "Segunda página de la carta" },
+];
+---
+
+<BaseLayout titulo={`Carta — ${negocio.nombre}`}>
+  <header class="carta-bar">
+    <div class="contenedor carta-bar__inner">
+      <a class="carta-bar__volver" href={base}>← Inicio</a>
+      <span class="carta-bar__titulo">Nuestra carta</span>
+      <a
+        class="btn btn--rojo carta-bar__pdf"
+        href={pdf}
+        target="_blank"
+        rel="noopener"
+      >
+        Abrir PDF
+      </a>
+    </div>
+  </header>
+
+  <main class="carta">
+    <div class="contenedor">
+      <span class="seccion__cinta">Carta</span>
+      <h1 class="carta__titulo">Nuestra carta completa</h1>
+      <p class="carta__lead">
+        Desliza para ver la carta. Toca cualquier página para abrir el PDF y
+        hacer zoom, o descárgala para leerla cuando quieras.
+      </p>
+
+      <div class="carta__acciones">
+        <a class="btn btn--rojo" href={pdf} target="_blank" rel="noopener">
+          Abrir en PDF
+        </a>
+        <a class="btn" href={pdf} download="Carta-Su-Punto-Pa-Que-Coma.pdf">
+          Descargar
+        </a>
+      </div>
+
+      <div class="carta__paginas">
+        {
+          paginas.map((pagina, i) => (
+            <a
+              class="carta__pagina"
+              href={pdf}
+              target="_blank"
+              rel="noopener"
+              aria-label={`Abrir el PDF: ${pagina.alt}`}
+            >
+              <img
+                src={pagina.src}
+                alt={pagina.alt}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+              <span class="carta__zoom" aria-hidden="true">
+                Toca para abrir el PDF y ampliar
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
+
+<style>
+  .carta-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--amarillo);
+    border-bottom: var(--borde);
+  }
+  .carta-bar__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.6rem;
+    padding-block: 0.6rem;
+  }
+  .carta-bar__volver {
+    justify-self: start;
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--crema);
+    border: var(--borde-fino);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.9rem;
+  }
+  .carta-bar__volver:hover {
+    background: var(--rojo);
+    color: var(--blanco);
+  }
+  .carta-bar__titulo {
+    font-family: var(--fuente-titulo);
+    font-weight: 800;
+    font-size: 1.05rem;
+    text-align: center;
+  }
+  .carta-bar__pdf {
+    justify-self: end;
+    font-size: 0.9rem;
+    padding: 0.45rem 0.95rem;
+  }
+  .carta-bar__inner .carta-bar__volver,
+  .carta-bar__inner .carta-bar__pdf {
+    white-space: nowrap;
+  }
+
+  .carta {
+    background: var(--crema);
+    padding-block: 1.6rem 3rem;
+  }
+  .carta__titulo {
+    font-size: clamp(1.8rem, 7vw, 3rem);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .carta__lead {
+    max-width: 44rem;
+    font-weight: 600;
+    color: #4a3f10;
+    margin-bottom: 1.1rem;
+  }
+  .carta__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 1.4rem;
+  }
+  .carta__paginas {
+    display: grid;
+    gap: 1rem;
+  }
+  .carta__pagina {
+    position: relative;
+    display: block;
+    border: var(--borde);
+    border-radius: var(--radio-chico);
+    box-shadow: var(--sombra-chica);
+    overflow: hidden;
+    background: var(--blanco);
+    line-height: 0;
+  }
+  .carta__pagina img {
+    width: 100%;
+    height: auto;
+  }
+  .carta__zoom {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    background: var(--negro);
+    color: var(--amarillo);
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 900px) {
+    .carta {
+      padding-block: 2.5rem 4rem;
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import { negocio } from "../data/menu";
+---
+
+<section class="seccion contacto" id="contacto">
+  <div class="contenedor">
+    <span class="seccion__cinta">Contacto</span>
+    <h2 class="seccion__titulo">Ven o pide a domicilio</h2>
+
+    <div class="contacto__grid">
+      <div class="contacto__tarjeta">
+        <ul class="contacto__lista">
+          <li>
+            <span class="contacto__icono" aria-hidden="true">📍</span>
+            <div>
+              <b>Dirección</b>
+              <span>{negocio.direccion}</span>
+            </div>
+          </li>
+          <li>
+            <span class="contacto__icono" aria-hidden="true">📞</span>
+            <div>
+              <b>Teléfono / WhatsApp</b>
+              <a href={`tel:+57${negocio.telefono.replace(/\s/g, "")}`}>
+                {negocio.telefono}
+              </a>
+            </div>
+          </li>
+        </ul>
+
+        <a
+          class="btn btn--wa"
+          style="margin-top:1.2rem"
+          href={negocio.whatsapp}
+          target="_blank"
+          rel="noopener"
+        >
+          Escribir por WhatsApp
+        </a>
+      </div>
+
+      <div class="contacto__tarjeta">
+        <b style="font-family:var(--fuente-titulo);font-size:1.2rem">
+          Síguenos
+        </b>
+        <p style="font-size:.92rem;color:#555">
+          Entérate de promociones y novedades en nuestras redes.
+        </p>
+
+        <div class="contacto__redes">
+          <a class="red" href={negocio.instagram} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 2.2c3.2 0 3.6 0 4.9.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2m0 1.8c-3.15 0-3.5 0-4.74.07-.9.04-1.38.19-1.7.31-.43.17-.73.37-1.05.69-.32.32-.52.62-.69 1.05-.12.32-.27.8-.31 1.7C3.44 8.5 3.44 8.85 3.44 12s0 3.5.07 4.74c.04.9.19 1.38.31 1.7.17.43.37.73.69 1.05.32.32.62.52 1.05.69.32.12.8.27 1.7.31 1.24.07 1.59.07 4.74.07s3.5 0 4.74-.07c.9-.04 1.38-.19 1.7-.31.43-.17.73-.37 1.05-.69.32-.32.52-.62.69-1.05.12-.32.27-.8.31-1.7.07-1.24.07-1.59.07-4.74s0-3.5-.07-4.74c-.04-.9-.19-1.38-.31-1.7a2.8 2.8 0 0 0-.69-1.05 2.8 2.8 0 0 0-1.05-.69c-.32-.12-.8-.27-1.7-.31C15.5 4 15.15 4 12 4m0 3.06A4.94 4.94 0 1 1 12 16.94 4.94 4.94 0 0 1 12 7.06m0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28m5.15-3.2a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3"
+              ></path>
+            </svg>
+            Instagram
+          </a>
+          <a class="red" href={negocio.tiktok} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M16.5 3c.3 2.1 1.5 3.6 3.5 3.9v2.5c-1.3.1-2.5-.3-3.6-1v5.9c0 3.3-2.5 5.7-5.7 5.7A5.6 5.6 0 0 1 5 14.4 5.6 5.6 0 0 1 11.7 9v2.7c-.3-.1-.6-.1-1-.1a2.8 2.8 0 0 0-2.9 2.8 2.8 2.8 0 0 0 2.8 2.8c1.6 0 2.9-1.3 2.9-2.8V3h3z"
+              ></path>
+            </svg>
+            TikTok
+          </a>
+          <a class="red" href={negocio.facebook} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.3H7.8V13h2.7v8h3z"
+              ></path>
+            </svg>
+            Facebook
+          </a>
+        </div>
+
+        <p style="margin-top:1rem;font-weight:700">{negocio.handle}</p>
+      </div>
+    </div>
+  </div>
+</section>

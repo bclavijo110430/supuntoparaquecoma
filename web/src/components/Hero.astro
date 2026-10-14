@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { negocio } from "../data/menu";
+
+const cinta = [
+  "Arepas paisas",
+  "Caldos",
+  "Bandejas",
+  "Salchipapas",
+  "Jugos naturales",
+  "Desde 2010",
+];
+const pista = [...cinta, ...cinta];
+---
+
+<section class="hero" id="inicio">
+  <div class="contenedor hero__inner">
+    <Image
+      class="hero__logo"
+      src={logo}
+      alt={`Logo de ${negocio.nombre}`}
+      width={440}
+      height={440}
+      loading="eager"
+    />
+
+    <div class="hero__copy">
+      <span class="hero__eyebrow">{negocio.lema}</span>
+      <h1>Su Punto<br /><em>Para Que Coma</em></h1>
+      <p class="hero__lead">{negocio.descripcion}</p>
+
+      <div class="hero__acciones">
+        <a class="btn btn--rojo" href="#menu">Ver el menú</a>
+        <a
+          class="btn btn--wa"
+          href={negocio.whatsapp}
+          target="_blank"
+          rel="noopener"
+        >
+          Pedir por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__cinta" aria-hidden="true">
+    <div class="pista">
+      {pista.map((texto) => <span>{texto} ·</span>)}
+    </div>
+  </div>
+</section>

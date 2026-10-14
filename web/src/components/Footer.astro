@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { negocio } from "../data/menu";
+
+const anio = new Date().getFullYear();
+---
+
+<footer class="pie">
+  <div class="contenedor">
+    <Image src={logo} alt={`Logo de ${negocio.nombre}`} width={160} height={160} />
+    <p>
+      {negocio.nombre} · {negocio.direccion}
+    </p>
+    <small>
+      Empaque para llevar pequeño $500 · grande $1.000 · © {anio}
+    </small>
+  </div>
+</footer>

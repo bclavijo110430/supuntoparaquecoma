@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { negocio } from "../data/menu";
+---
+
+<header class="cabecera">
+  <div class="contenedor cabecera__inner">
+    <a class="cabecera__marca" href="#inicio">
+      <Image src={logo} alt={`Logo de ${negocio.nombre}`} width={108} height={108} loading="eager" />
+      <span>{negocio.nombre}</span>
+    </a>
+
+    <a
+      class="btn btn--wa cabecera__cta"
+      href={negocio.whatsapp}
+      target="_blank"
+      rel="noopener"
+    >
+      Pedir
+    </a>
+
+    <nav class="cabecera__nav" aria-label="Secciones">
+      <a href="#menu">Menú</a>
+      <a href={`${import.meta.env.BASE_URL}carta`}>Carta</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>

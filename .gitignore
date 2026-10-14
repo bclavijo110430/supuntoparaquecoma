@@ -1,0 +1,24 @@
+# Material de diseño y fuentes crudas. No se publica.
+sources/
+
+# Dependencias y salidas de build
+node_modules/
+dist/
+.astro/
+web/dist/
+web/.astro/
+web/node_modules/
+
+# Entornos
+.env
+.env.production
+
+# Sistema
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Python
+__pycache__/
+*.pyc

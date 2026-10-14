@@ -1,0 +1,33 @@
+---
+const datos = [
+  { valor: "2010", etiqueta: "Cocinando" },
+  { valor: "100%", etiqueta: "Artesanal" },
+  { valor: "Domicilios", etiqueta: "Y para llevar" },
+];
+---
+
+<section class="seccion nosotros" id="nosotros">
+  <div class="contenedor">
+    <span class="seccion__cinta">Nosotros</span>
+    <h2 class="seccion__titulo">El punto donde<br />siempre quieres comer</h2>
+
+    <div class="nosotros__grid">
+      <p class="nosotros__texto">
+        Desde 2010 preparamos arepas paisas hechas a mano, caldos que
+        reconfortan, bandejas bien servidas y antojos para toda la familia.
+        Aquí cada pedido se hace con cariño, como en casa.
+      </p>
+
+      <div class="nosotros__datos">
+        {
+          datos.map((d) => (
+            <div class="nosotros__dato">
+              <b>{d.valor}</b>
+              <small>{d.etiqueta}</small>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
