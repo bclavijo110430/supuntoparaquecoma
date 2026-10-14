@@ -8,10 +8,7 @@ el dominio en URL_CARTA.
 import sys
 import qrcode
 
-# ---------------------------------------------------------------------------
-# TODO: cambia este dominio cuando la landing esté hosteada.
-# ---------------------------------------------------------------------------
-URL_CARTA = "https://<TU-DOMINIO>/carta"
+URL_CARTA = "https://bclavijo110430.github.io/supuntoparaquecoma/carta"
 
 
 def generar_qr(url, salida="qr.png"):
