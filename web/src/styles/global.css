@@ -64,6 +64,7 @@ p {
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -242,7 +243,7 @@ a {
 }
 
 .hero__logo {
-  width: clamp(190px, 52vw, 300px);
+  width: clamp(220px, 62vw, 330px);
   margin-inline: auto;
   filter: drop-shadow(5px 6px 0 rgba(0, 0, 0, 0.35));
   animation: flotar 4s ease-in-out infinite;
