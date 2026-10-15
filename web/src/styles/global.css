@@ -651,6 +651,271 @@ a {
 }
 
 /* ==========================================================================
+   Menú — añadir al carrito
+   ========================================================================== */
+.item__acciones {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.item__acciones .item__precio {
+  margin-left: 0;
+}
+.item__add {
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.32rem 0.7rem;
+  border: var(--borde-fino);
+  border-radius: 999px;
+  background: var(--amarillo);
+  color: var(--negro);
+  box-shadow: 2px 2px 0 var(--negro);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+.item__add:hover {
+  background: var(--verde-wa);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--negro);
+}
+.item__add:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 var(--negro);
+}
+
+/* ==========================================================================
+   Carrito de compras
+   ========================================================================== */
+.carrito-flotante {
+  position: fixed;
+  right: 1rem;
+  bottom: 5.4rem;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--negro);
+  color: var(--amarillo);
+  border: var(--borde);
+  border-radius: 999px;
+  padding: 0.7rem;
+  box-shadow: var(--sombra);
+  cursor: pointer;
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  transition: transform 0.12s ease;
+}
+.carrito-flotante:hover {
+  transform: translate(-2px, -2px);
+}
+.carrito-flotante svg {
+  width: 30px;
+  height: 30px;
+}
+.carrito-flotante__texto {
+  display: none;
+  font-size: 1rem;
+}
+.carrito-flotante__contador {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.4rem;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rojo);
+  color: var(--blanco);
+  border: 2px solid var(--blanco);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.carrito-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(26, 26, 26, 0.55);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.carrito-overlay--visible {
+  opacity: 1;
+}
+
+.carrito-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 71;
+  width: min(100%, 420px);
+  display: flex;
+  flex-direction: column;
+  background: var(--crema);
+  border-left: var(--borde);
+  box-shadow: -8px 0 0 rgba(26, 26, 26, 0.25);
+  transform: translateX(102%);
+  transition: transform 0.22s ease;
+}
+.carrito-panel--abierto {
+  transform: translateX(0);
+}
+
+.carrito-panel__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1rem 1.1rem;
+  background: var(--amarillo);
+  border-bottom: var(--borde);
+}
+.carrito-panel__cabecera h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+.carrito-cerrar {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blanco);
+  border: var(--borde-fino);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--negro);
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.carrito-panel__cuerpo {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.1rem;
+}
+.carrito-vacio {
+  font-weight: 600;
+  color: #6b6b6b;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.carrito-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+.carrito-linea {
+  display: grid;
+  gap: 0.5rem;
+  background: var(--blanco);
+  border: var(--borde-fino);
+  border-radius: var(--radio-chico);
+  box-shadow: var(--sombra-chica);
+  padding: 0.7rem 0.8rem;
+}
+.carrito-linea__info {
+  display: grid;
+  gap: 0.1rem;
+}
+.carrito-linea__nombre {
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.15;
+}
+.carrito-linea__precio {
+  font-size: 0.82rem;
+  color: #666;
+}
+.carrito-linea__controles {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.carrito-cantidad {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--amarillo);
+  border: var(--borde-fino);
+  border-radius: 999px;
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.carrito-cantidad__valor {
+  min-width: 1.6rem;
+  text-align: center;
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+}
+.carrito-eliminar {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blanco);
+  border: var(--borde-fino);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.carrito-linea__subtotal {
+  margin-left: auto;
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  color: var(--rojo);
+}
+
+.carrito-panel__pie {
+  padding: 1rem 1.1rem;
+  background: var(--blanco);
+  border-top: var(--borde);
+  display: grid;
+  gap: 0.8rem;
+}
+.carrito-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--fuente-titulo);
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+.carrito-total b {
+  font-size: 1.6rem;
+  color: var(--rojo);
+}
+.carrito-enviar {
+  width: 100%;
+  justify-content: center;
+}
+.carrito-enviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--sombra-chica);
+}
+
+/* ==========================================================================
    Animaciones
    ========================================================================== */
 @keyframes flotar {
@@ -681,8 +946,14 @@ a {
   }
   .btn:hover,
   .item:hover,
-  .wa-flotante:hover {
+  .wa-flotante:hover,
+  .carrito-flotante:hover,
+  .item__add:hover {
     transform: none;
+  }
+  .carrito-panel,
+  .carrito-overlay {
+    transition: none;
   }
 }
 
@@ -691,6 +962,9 @@ a {
    ========================================================================== */
 @media (min-width: 640px) {
   .wa-flotante span {
+    display: inline;
+  }
+  .carrito-flotante__texto {
     display: inline;
   }
   .items {

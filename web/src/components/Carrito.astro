@@ -1,0 +1,72 @@
+---
+import { negocio } from "../data/menu";
+---
+
+<div class="carrito" data-carrito data-wa={negocio.whatsapp}>
+  <button
+    class="carrito-flotante"
+    type="button"
+    data-carrito-abrir
+    aria-controls="carrito-panel"
+    aria-haspopup="dialog"
+    aria-label="Ver tu pedido"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="9" cy="20" r="1.6"></circle>
+      <circle cx="18" cy="20" r="1.6"></circle>
+      <path d="M2.5 3h2.2l2.1 12.2a1.6 1.6 0 0 0 1.6 1.3h9.3a1.6 1.6 0 0 0 1.6-1.3L21 7H6"></path>
+    </svg>
+    <span class="carrito-flotante__texto">Pedido</span>
+    <span class="carrito-flotante__contador" data-carrito-contador aria-live="polite" hidden>0</span>
+  </button>
+
+  <div class="carrito-overlay" data-carrito-cerrar hidden></div>
+
+  <aside
+    class="carrito-panel"
+    id="carrito-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Tu pedido"
+    hidden
+  >
+    <header class="carrito-panel__cabecera">
+      <h2>Tu pedido</h2>
+      <button
+        class="carrito-cerrar"
+        type="button"
+        data-carrito-cerrar
+        data-carrito-cerrar-boton
+        aria-label="Cerrar el pedido"
+      >
+        ✕
+      </button>
+    </header>
+
+    <div class="carrito-panel__cuerpo">
+      <p class="carrito-vacio" data-carrito-vacio>
+        Tu pedido está vacío. Añade algo del menú 😋
+      </p>
+      <ul class="carrito-lista" data-carrito-lista hidden></ul>
+    </div>
+
+    <footer class="carrito-panel__pie">
+      <div class="carrito-total">
+        <span>Total</span>
+        <b data-carrito-total>$0</b>
+      </div>
+      <button
+        class="btn btn--wa carrito-enviar"
+        type="button"
+        data-carrito-whatsapp
+        disabled
+      >
+        Enviar pedido por WhatsApp
+      </button>
+    </footer>
+  </aside>
+</div>
+
+<script>
+  import "../scripts/carrito.ts";
+</script>

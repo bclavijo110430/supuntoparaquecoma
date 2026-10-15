@@ -39,8 +39,14 @@ import { getFoto } from "../data/images";
           <div class="items">
             {cat.items.map((item) => {
               const foto = getFoto(item.foto);
+              const id = `${cat.id}::${item.nombre}`;
               return (
-                <article class="item">
+                <article
+                  class="item"
+                  data-id={id}
+                  data-nombre={item.nombre}
+                  data-precio={item.precio ?? ""}
+                >
                   {foto && (
                     <Image
                       class="item__foto"
@@ -59,7 +65,17 @@ import { getFoto } from "../data/images";
                     )}
                   </div>
                   {item.precio && (
-                    <span class="item__precio">{item.precio}</span>
+                    <div class="item__acciones">
+                      <span class="item__precio">{item.precio}</span>
+                      <button
+                        class="item__add"
+                        type="button"
+                        data-add
+                        aria-label={`Añadir ${item.nombre} al carrito`}
+                      >
+                        + Añadir
+                      </button>
+                    </div>
                   )}
                 </article>
               );
