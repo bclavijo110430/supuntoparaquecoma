@@ -27,23 +27,25 @@ const pdf = `${base}carta/carta.pdf`;
 
   <main class="carta">
     <div class="contenedor">
-      <span class="seccion__cinta">Carta</span>
-      <h1 class="carta__titulo">Nuestra carta completa</h1>
-      <p class="carta__lead">
-        Hojea nuestra carta como un libro. Desliza, toca las esquinas o usa las
-        flechas; también puedes abrir el PDF para hacer zoom o descargarla.
-      </p>
-
-      <div class="carta__acciones">
-        <a class="btn btn--rojo" href={pdf} target="_blank" rel="noopener">
-          Abrir en PDF
-        </a>
-        <a class="btn" href={pdf} download="Carta-Su-Punto-Para-Que-Coma.pdf">
-          Descargar
-        </a>
-      </div>
-
       <LibroCarta />
+
+      <section class="carta__info">
+        <span class="seccion__cinta">Carta</span>
+        <h1 class="carta__titulo">Nuestra carta completa</h1>
+        <p class="carta__lead">
+          Hojea nuestra carta como un libro con las flechas laterales. Si
+          prefieres, abre el PDF para hacer zoom o descargarla.
+        </p>
+
+        <div class="carta__acciones">
+          <a class="btn btn--rojo" href={pdf} target="_blank" rel="noopener">
+            Abrir en PDF
+          </a>
+          <a class="btn" href={pdf} download="Carta-Su-Punto-Para-Que-Coma.pdf">
+            Descargar
+          </a>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -104,7 +106,10 @@ const pdf = `${base}carta/carta.pdf`;
 
   .carta {
     background: transparent;
-    padding-block: 1.6rem 3rem;
+    padding-block: 0 3rem;
+  }
+  .carta__info {
+    margin-top: 2.5rem;
   }
   .carta__titulo {
     font-size: clamp(1.8rem, 7vw, 3rem);
@@ -129,7 +134,10 @@ const pdf = `${base}carta/carta.pdf`;
 
   @media (min-width: 900px) {
     .carta {
-      padding-block: 2.5rem 4rem;
+      padding-block: 0 4rem;
+    }
+    .carta__info {
+      margin-top: 3rem;
     }
   }
 </style>

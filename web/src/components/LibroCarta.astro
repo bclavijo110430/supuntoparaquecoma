@@ -141,7 +141,7 @@ const pagina2 = `${base}carta/pagina-2.webp`;
         Portada
       </span>
       <span class="libro__pista" data-libro-pista>
-        Toca la portada o usa las flechas para abrir
+        Usa las flechas para abrir
       </span>
     </div>
 
@@ -160,11 +160,16 @@ const pagina2 = `${base}carta/pagina-2.webp`;
 
 <style>
   .libro {
-    margin-top: 1.4rem;
+    margin-top: 0;
   }
 
   .libro__escenario {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - var(--alto-cabecera) - 5.5rem);
+    min-height: calc(100svh - var(--alto-cabecera) - 5.5rem);
     padding-block: 0.6rem 1rem;
   }
   .libro__escenario::before {
@@ -182,6 +187,7 @@ const pagina2 = `${base}carta/pagina-2.webp`;
   .libro__cuerpo {
     position: relative;
     z-index: 1;
+    width: 100%;
     min-width: 0 !important;
     min-height: 0 !important;
     margin-inline: auto;
@@ -205,10 +211,7 @@ const pagina2 = `${base}carta/pagina-2.webp`;
   .hoja {
     background: #0b0b0b;
     overflow: hidden;
-    cursor: grab;
-  }
-  .hoja:active {
-    cursor: grabbing;
+    cursor: default;
   }
 
   .hoja__marco {
@@ -445,10 +448,10 @@ const pagina2 = `${base}carta/pagina-2.webp`;
     transform: translateY(-50%);
   }
   .libro__flecha--antes.libro__flecha--lateral {
-    left: -0.75rem;
+    left: max(0.5rem, calc(50% - var(--ancho-libro, 100%) / 2 - 3.75rem));
   }
   .libro__flecha--despues.libro__flecha--lateral {
-    right: -0.75rem;
+    right: max(0.5rem, calc(50% - var(--ancho-libro, 100%) / 2 - 3.75rem));
   }
 
   @media (min-width: 1000px) {
@@ -495,9 +498,9 @@ const pagina2 = `${base}carta/pagina-2.webp`;
         height: 1296,
         size: "stretch",
         minWidth: 460,
-        maxWidth: 540,
+        maxWidth: 620,
         minHeight: 100,
-        maxHeight: 1200,
+        maxHeight: 1400,
         startPage: 1,
         showCover: false,
         usePortrait: true,
@@ -507,10 +510,42 @@ const pagina2 = `${base}carta/pagina-2.webp`;
         mobileScrollSupport: true,
         swipeDistance: 24,
         startZIndex: 10,
-        useMouseEvents: true,
-        showPageCorners: true,
-        clickEventForward: true,
+        useMouseEvents: false,
+        showPageCorners: false,
+        clickEventForward: false,
+        disableFlipByClick: true,
       });
+
+      const ratioPagina = 1296 / 800;
+      const maxAnchoPagina = 620;
+      const barra = seccion.querySelector<HTMLElement>(".libro__barra");
+      const cabecera = document.querySelector<HTMLElement>("header.carta-bar");
+
+      const ajustarTamano = () => {
+        if (!libro.getRender()) return;
+
+        const altoCabecera = cabecera?.offsetHeight ?? 0;
+        const altoBarra = barra?.offsetHeight ?? 0;
+        const altoDisponible = Math.max(
+          320,
+          window.innerHeight - altoCabecera - altoBarra - 48,
+        );
+        const anchoPagina = Math.max(
+          140,
+          Math.min(maxAnchoPagina, Math.floor(altoDisponible / ratioPagina)),
+        );
+        const usarDoble = seccion.clientWidth >= anchoPagina * 2;
+        const ajustes = libro.getSettings();
+
+        ajustes.maxWidth = anchoPagina;
+        ajustes.minWidth = usarDoble ? anchoPagina : 460;
+        contenedor.style.maxWidth = `${anchoPagina * (usarDoble ? 2 : 1)}px`;
+        seccion.style.setProperty(
+          "--ancho-libro",
+          `${anchoPagina * (usarDoble ? 2 : 1)}px`,
+        );
+        libro.update();
+      };
 
       const total = hojas.length;
       const totalCarta = total - 3;
@@ -550,10 +585,10 @@ const pagina2 = `${base}carta/pagina-2.webp`;
         if (pista) {
           pista.textContent =
             vistaActual === 0
-              ? "Toca la portada o usa las flechas para abrir"
+              ? "Usa las flechas para abrir"
               : vistaActual >= ultimaVista
                 ? "Fin de la carta · abre el PDF para hacer zoom"
-                : "Desliza o usa las flechas para hojear";
+                : "Usa las flechas para hojear";
         }
 
         botonesAntes.forEach((boton) => {
@@ -564,7 +599,10 @@ const pagina2 = `${base}carta/pagina-2.webp`;
         });
       };
 
-      libro.on("init", actualizar);
+      libro.on("init", () => {
+        ajustarTamano();
+        actualizar();
+      });
       libro.on("flip", actualizar);
       libro.on("changeOrientation", (evento) => {
         if (evento.data === "portrait" && libro.getCurrentPageIndex() === 0) {
@@ -578,6 +616,12 @@ const pagina2 = `${base}carta/pagina-2.webp`;
       });
       botonesDespues.forEach((boton) => {
         boton.addEventListener("click", () => libro.flipNext());
+      });
+
+      let esperaRedimension: number | undefined;
+      window.addEventListener("resize", () => {
+        window.clearTimeout(esperaRedimension);
+        esperaRedimension = window.setTimeout(ajustarTamano, 120);
       });
 
       libro.loadFromHTML(hojas);
