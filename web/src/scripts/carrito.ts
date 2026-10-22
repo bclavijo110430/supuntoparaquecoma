@@ -5,7 +5,13 @@ type Linea = {
   cantidad: number;
 };
 
+type DatosEnvio = {
+  nombre: string;
+  direccion: string;
+};
+
 const CLAVE = "spqc-carrito-v1";
+const CLAVE_ENVIO = "spqc-envio-v1";
 
 const parsePrecio = (valor: string): number =>
   Number(valor.replace(/[^\d]/g, "")) || 0;
@@ -39,7 +45,29 @@ function guardar(): void {
   }
 }
 
+function cargarEnvio(): DatosEnvio {
+  try {
+    const crudo = localStorage.getItem(CLAVE_ENVIO);
+    const datos = crudo ? JSON.parse(crudo) : null;
+    return {
+      nombre: typeof datos?.nombre === "string" ? datos.nombre : "",
+      direccion: typeof datos?.direccion === "string" ? datos.direccion : "",
+    };
+  } catch {
+    return { nombre: "", direccion: "" };
+  }
+}
+
+function guardarEnvio(): void {
+  try {
+    localStorage.setItem(CLAVE_ENVIO, JSON.stringify(envio));
+  } catch {
+    /* almacenamiento no disponible */
+  }
+}
+
 let carrito: Linea[] = cargar();
+let envio: DatosEnvio = cargarEnvio();
 
 const total = (): number =>
   carrito.reduce((suma, l) => suma + l.precio * l.cantidad, 0);
@@ -83,9 +111,44 @@ let vacioEl: HTMLElement | null = null;
 let totalEl: HTMLElement | null = null;
 let contadorEl: HTMLElement | null = null;
 let botonWa: HTMLButtonElement | null = null;
+let datosEl: HTMLElement | null = null;
+let nombreEl: HTMLInputElement | null = null;
+let direccionEl: HTMLInputElement | null = null;
+let nombreErrorEl: HTMLElement | null = null;
+let direccionErrorEl: HTMLElement | null = null;
+let avisoEl: HTMLElement | null = null;
 let whatsappUrl = "https://wa.me/";
 
 let ultimoFoco: HTMLElement | null = null;
+
+const envioCompleto = (): boolean =>
+  envio.nombre.trim() !== "" && envio.direccion.trim() !== "";
+
+function marcarCampo(
+  input: HTMLInputElement | null,
+  error: HTMLElement | null,
+  valido: boolean,
+): void {
+  if (input) {
+    if (valido) input.removeAttribute("aria-invalid");
+    else input.setAttribute("aria-invalid", "true");
+  }
+  if (error) error.hidden = valido;
+}
+
+function validarNombre(): void {
+  marcarCampo(nombreEl, nombreErrorEl, envio.nombre.trim() !== "");
+}
+
+function validarDireccion(): void {
+  marcarCampo(direccionEl, direccionErrorEl, envio.direccion.trim() !== "");
+}
+
+function actualizarBoton(): void {
+  const vacio = carrito.length === 0;
+  if (botonWa) botonWa.disabled = vacio || !envioCompleto();
+  if (avisoEl) avisoEl.hidden = vacio || envioCompleto();
+}
 
 function render(): void {
   if (!raiz) return;
@@ -105,9 +168,10 @@ function render(): void {
   const vacio = carrito.length === 0;
   if (vacioEl) vacioEl.hidden = !vacio;
   if (listaEl) listaEl.hidden = vacio;
+  if (datosEl) datosEl.hidden = vacio;
 
   if (totalEl) totalEl.textContent = formatPrecio(total());
-  if (botonWa) botonWa.disabled = vacio;
+  actualizarBoton();
 }
 
 function crearFila(linea: Linea): HTMLLIElement {
@@ -198,6 +262,15 @@ function alternar(): void {
 
 function enviarWhatsApp(): void {
   if (carrito.length === 0) return;
+
+  if (!envioCompleto()) {
+    validarNombre();
+    validarDireccion();
+    if (!envio.nombre.trim()) nombreEl?.focus();
+    else direccionEl?.focus();
+    return;
+  }
+
   const lineas = carrito
     .map(
       (l) =>
@@ -206,7 +279,10 @@ function enviarWhatsApp(): void {
     .join("\n");
   const mensaje =
     `¡Hola *Su Punto Para Que Coma*! 👋 Quiero hacer este pedido:\n\n` +
-    `${lineas}\n\n*Total: ${formatPrecio(total())}*`;
+    `${lineas}\n\n*Total: ${formatPrecio(total())}*\n\n` +
+    `*Datos de envío*\n` +
+    `*Nombre:* ${envio.nombre.trim()}\n` +
+    `*Dirección:* ${envio.direccion.trim()}`;
   const url = `${whatsappUrl}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank", "noopener");
 }
@@ -271,7 +347,7 @@ function onKeydown(evento: KeyboardEvent): void {
   if (evento.key !== "Tab") return;
 
   const focos = panel.querySelectorAll<HTMLElement>(
-    'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
+    'button:not([disabled]), a[href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])',
   );
   if (focos.length === 0) return;
   const primero = focos[0];
@@ -296,7 +372,34 @@ function init(): void {
   totalEl = raiz.querySelector<HTMLElement>("[data-carrito-total]");
   contadorEl = raiz.querySelector<HTMLElement>("[data-carrito-contador]");
   botonWa = raiz.querySelector<HTMLButtonElement>("[data-carrito-whatsapp]");
+  datosEl = raiz.querySelector<HTMLElement>("[data-carrito-datos]");
+  nombreEl = raiz.querySelector<HTMLInputElement>("[data-carrito-nombre]");
+  direccionEl = raiz.querySelector<HTMLInputElement>("[data-carrito-direccion]");
+  nombreErrorEl = raiz.querySelector<HTMLElement>("[data-carrito-nombre-error]");
+  direccionErrorEl = raiz.querySelector<HTMLElement>(
+    "[data-carrito-direccion-error]",
+  );
+  avisoEl = raiz.querySelector<HTMLElement>("[data-carrito-aviso]");
   whatsappUrl = raiz.dataset.wa || whatsappUrl;
+
+  if (nombreEl) nombreEl.value = envio.nombre;
+  if (direccionEl) direccionEl.value = envio.direccion;
+
+  nombreEl?.addEventListener("input", () => {
+    envio.nombre = nombreEl!.value;
+    guardarEnvio();
+    if (envio.nombre.trim()) validarNombre();
+    actualizarBoton();
+  });
+  nombreEl?.addEventListener("blur", validarNombre);
+
+  direccionEl?.addEventListener("input", () => {
+    envio.direccion = direccionEl!.value;
+    guardarEnvio();
+    if (envio.direccion.trim()) validarDireccion();
+    actualizarBoton();
+  });
+  direccionEl?.addEventListener("blur", validarDireccion);
 
   document.addEventListener("click", onClick);
   document.addEventListener("keydown", onKeydown);

@@ -19,8 +19,8 @@ export const menu: MenuCategory[] = [
     titulo: "Entradas",
     emoji: "🥟",
     items: [
-      { nombre: "Empanadas", precio: "$3.500" },
-      { nombre: "Pasteles", precio: "$3.800" },
+      { nombre: "Chicharrón picado con platanitos", precio: "$15.000", foto: "entrada-chicharron.png" },
+      { nombre: "Chorizo picado con platanitos", precio: "$15.000", foto: "entrada-chorizo.png" },
     ],
   },
   {
@@ -48,32 +48,15 @@ export const menu: MenuCategory[] = [
         precio: "$10.500",
         foto: "caldo-pescado.png",
       },
-      { nombre: "Caldo de pata", precio: "$10.500" },
-      { nombre: "Caldo con huevo", precio: "$9.500" },
-      { nombre: "Consomé", precio: "$4.500" },
+      { nombre: "Caldo de pata", precio: "$10.500", foto: "caldo-costilla.png" },
+      { nombre: "Caldo con huevo", precio: "$9.500", foto: "changua.png" },
+      { nombre: "Consomé", precio: "$4.500", foto: "caldo-costilla.png" },
     ],
   },
   {
-    id: "combos-desayunos",
-    titulo: "Combos desayunos",
-    emoji: "🍳",
-    items: [
-      {
-        nombre: "Desayuno de pericos",
-        descripcion: "Huevos pericos, arepa, queso y bebida caliente.",
-        precio: "$17.000",
-      },
-      {
-        nombre: "Desayuno de rancheros",
-        descripcion: "Huevos rancheros, arepa, queso y bebida caliente.",
-        precio: "$19.500",
-      },
-    ],
-  },
-  {
-    id: "arepas",
-    titulo: "Arepas",
-    emoji: "🫓",
+    id: "arepas-sencillas",
+    titulo: "Arepas sencillas",
+    emoji: "🧀",
     items: [
       {
         nombre: "Arepa con queso",
@@ -83,38 +66,52 @@ export const menu: MenuCategory[] = [
       },
       {
         nombre: "Arepa con doble queso",
-        precio: "$6.000",
+        foto: "arepa-sencilla.png",
+        precio: "$6.500",
       },
       {
         nombre: "Arepa con jamón y queso",
-        descripcion: "Queso doble crema y jamón ahumado.",
-        precio: "$7.000",
+        descripcion:
+          "Arepa paisa con doble porción de queso y un jamón ahumado.",
+        precio: "$8.000",
         foto: "arepa-jamon-queso.png",
       },
+    ],
+  },
+  {
+    id: "arepas",
+    titulo: "Arepas",
+    emoji: "🫓",
+    items: [
       {
         nombre: "Chorizo santarrosano solo",
-        precio: "$5.800",
+        foto: "arepa-chorizo.png",
+        precio: "$6.000",
       },
       {
         nombre: "Arepa con chorizo santarrosano",
-        descripcion: "Con chorizo Santa Rosano original.",
-        precio: "$7.500",
+        descripcion: "Con chorizo santarrosano original.",
+        precio: "$8.000",
         foto: "arepa-chorizo.png",
       },
       {
         nombre: "Papa con chorizo santarrosano",
+        foto: "arepa-chorizo.png",
         precio: "$7.500",
       },
       {
         nombre: "Arepa con chorizo santarrosano y queso",
+        foto: "arepa-chorizo.png",
         precio: "$9.500",
       },
       {
-        nombre: "Arepa con chorizo, queso y jamón",
+        nombre: "Arepa con chorizo santarrosano, queso y jamón",
+        foto: "arepa-jamon-queso.png",
         precio: "$12.000",
       },
       {
         nombre: "Pincho de pollo solo",
+        foto: "arepa-pincho.png",
         precio: "$5.800",
       },
       {
@@ -125,18 +122,22 @@ export const menu: MenuCategory[] = [
       },
       {
         nombre: "Papa con pincho de pollo",
+        foto: "arepa-pincho.png",
         precio: "$7.500",
       },
       {
         nombre: "Arepa con pincho de pollo y queso",
+        foto: "arepa-pincho.png",
         precio: "$9.500",
       },
       {
         nombre: "Arepa con pincho, queso y jamón",
+        foto: "arepa-jamon-queso.png",
         precio: "$12.000",
       },
       {
         nombre: "Arepa con huevos al gusto",
+        foto: "arepa-pericos.png",
         descripcion: "Con huevos fritos, revueltos y/o pericos.",
         precio: "$8.700",
       },
@@ -154,21 +155,13 @@ export const menu: MenuCategory[] = [
       },
       {
         nombre: "Arepa ranchera con todo",
+        foto: "arepa-rancheros.png",
         descripcion: "Con salchicha ranchera, jamón y doble queso.",
         precio: "$15.000",
       },
       {
-        nombre: "Arepa rellena",
-        descripcion: "Con jamón y queso, acompañada de carne, pollo y/o mixta.",
-        precio: "$15.000",
-        foto: "arepa-mixta.png",
-      },
-      {
-        nombre: "Arepa de huevos revueltos con chorizo",
-        precio: "$14.500",
-      },
-      {
         nombre: "Arepa con queso y carne en bistec",
+        foto: "arepa-mixta.png",
         precio: "$15.000",
       },
     ],
@@ -179,59 +172,60 @@ export const menu: MenuCategory[] = [
     emoji: "⭐",
     items: [
       {
-        nombre: "La Burguesita",
+        nombre: "Arepa rellena",
         descripcion:
-          "Carne de hamburguesa, jamón, queso, cebolla, tomate, papa chip y salsas.",
+          "Arepa paisa con jamón y queso, acompañada de carne, pollo y/o mixta.",
+        precio: "$16.000",
+        foto: "arepa-mixta.png",
+      },
+      {
+        nombre: "La Burguesita",
+        foto: "arepa-mixta.png",
+        descripcion:
+          "Arepa paisa con carne de hamburguesa, jamón, queso, cebolla, tomate, papa chip y salsas.",
         precio: "$15.000",
       },
       {
         nombre: "Arepa Burguer Super Punto y Coma",
+        foto: "arepa-mixta.png",
         descripcion:
           "Carne de hamburguesa, carne, pollo desmechado o mixta, jamón, queso, cebolla, tomate, papa chip y salsas.",
         precio: "$25.000",
       },
       {
         nombre: "La Calidosa",
+        foto: "arepa-mixta.png",
         descripcion: "Arepa paisa con doble queso y chicharrón.",
         precio: "$15.000",
       },
       {
         nombre: "La Sabrosonga",
+        foto: "arepa-mixta.png",
         descripcion:
-          "Arepa paisa con jamón, queso, pollo, carne y huevos al gusto.",
+          "Arepa paisa acompañada de jamón, queso, pollo, carne y huevos al gusto.",
         precio: "$19.000",
       },
       {
         nombre: "La Verraca",
+        foto: "arepa-rancheros.png",
         descripcion:
-          "Arepa paisa con jamón, queso, pollo, carne y huevos rancheros.",
+          "Arepa paisa acompañada de jamón, queso, pollo, carne y huevos rancheros.",
         precio: "$20.500",
       },
       {
         nombre: "La Suprema",
+        foto: "arepa-mixta.png",
         descripcion:
           "Arepa paisa con jamón, queso, chorizo picado, hogao, chicharrón triturado, carne, pollo y/o mixta.",
         precio: "$20.500",
       },
       {
         nombre: "Arepa Super Punto y Coma",
+        foto: "arepa-mixta.png",
         descripcion:
           "La más grande y poderosa: jamón, queso, chicharrón triturado con chorizo picado, huevo frito, plátano maduro, maíz tierno, hogao, guacamole, carne, pollo y/o mixta.",
         precio: "$26.000",
       },
-      {
-        nombre: "Arepa Rellena",
-        precio: "$15.000",
-      },
-    ],
-  },
-  {
-    id: "arepas-dulces",
-    titulo: "Arepas dulces",
-    emoji: "🍯",
-    items: [
-      { nombre: "Arepa con queso y bocadillo", precio: "$8.000" },
-      { nombre: "Arepa con queso y arequipe", precio: "$8.000" },
     ],
   },
   {
@@ -246,19 +240,24 @@ export const menu: MenuCategory[] = [
         foto: "carne-bistec.png",
       },
       {
-        nombre: "Calentado paisa con huevos",
-        descripcion: "Con huevos pericos, revueltos y/o fritos.",
+        nombre: "Calentado de frijoles con huevos pericos, revueltos y/o fritos",
         precio: "$14.000",
         foto: "calentado-paisa.png",
       },
       {
-        nombre: "Calentado paisa con huevos rancheros",
+        nombre: "Calentado de frijoles con huevos rancheros",
+        foto: "calentado-paisa.png",
         precio: "$15.500",
       },
       {
-        nombre: "Calentado paisa con carne en bistec",
+        nombre: "Calentado de frijoles con carne en bistec",
         precio: "$18.000",
         foto: "calentado-carne.png",
+      },
+      {
+        nombre: "Calentado de frijoles con chicharrón",
+        foto: "calentado-paisa.png",
+        precio: "$21.000",
       },
       {
         nombre: "Moñona de huevos revueltos, pericos y/o fritos",
@@ -271,23 +270,23 @@ export const menu: MenuCategory[] = [
         foto: "monona-rancheros.png",
       },
       {
-        nombre: "Moñona de calentado con huevos",
-        descripcion: "Con huevos revueltos, pericos y/o fritos.",
+        nombre: "Moñona de calentado con huevos revueltos, pericos y/o fritos",
         precio: "$20.000",
         foto: "monona.png",
       },
       {
         nombre: "Moñona de calentado con huevos rancheros",
+        foto: "monona-rancheros.png",
         precio: "$22.000",
       },
       {
-        nombre: "Huevos al gusto con pan",
-        descripcion: "Revueltos, pericos y/o fritos.",
+        nombre: "Huevos al gusto, revueltos, pericos y/o fritos con pan",
         precio: "$7.800",
         foto: "huevos-pan.png",
       },
       {
         nombre: "Huevos rancheros con pan",
+        foto: "huevos-pan.png",
         precio: "$8.700",
       },
       {
@@ -301,12 +300,9 @@ export const menu: MenuCategory[] = [
         foto: "arroz-rancheros.png",
       },
       {
-        nombre: "Chorizo con arroz",
+        nombre: "Chorizo con arroz, salsa de la carne y papa",
+        foto: "arepa-chorizo.png",
         precio: "$11.000",
-      },
-      {
-        nombre: "Chorihuevos con arroz",
-        precio: "$13.400",
       },
       {
         nombre: "Tamal",
@@ -322,16 +318,19 @@ export const menu: MenuCategory[] = [
     items: [
       {
         nombre: "Churrasco a la plancha",
+        foto: "carne-bistec.png",
         descripcion: "Papa francesa, media arepa paisa y ensalada.",
-        precio: "$25.000",
+        precio: "$30.000",
       },
       {
         nombre: "Salchipapa sencilla",
+        foto: "salchipapa.png",
         descripcion: "Dos porciones de papa, salchicha y queso.",
         precio: "$16.000",
       },
       {
         nombre: "Salchipapa Super Punto y Coma",
+        foto: "salchipapa.png",
         descripcion:
           "Arepa paisa en trozos, dos porciones de papa a la francesa, chorizo picado, salchicha americana, pollo, carne, cebolla grill, tomate, queso y salsa de la casa.",
         precio: "$24.000",
@@ -346,12 +345,14 @@ export const menu: MenuCategory[] = [
     items: [
       {
         nombre: "Pollito feliz",
+        foto: "arepa-pincho.png",
         descripcion:
           "Nuggets (6 unidades) de pollo crocantes con papitas a la francesa y jugo Hit caja pequeña.",
         precio: "$15.000",
       },
       {
         nombre: "Choricitos Kids",
+        foto: "arepa-chorizo.png",
         descripcion:
           "Chorizo picado con papitas a la francesa y jugo Hit caja pequeña.",
         precio: "$15.000",
@@ -362,23 +363,22 @@ export const menu: MenuCategory[] = [
     id: "adiciones",
     titulo: "Adiciones",
     emoji: "➕",
-    nota: "Desde $2.500",
+    nota: "Desde $700",
     items: [
-      { nombre: "Porción de arroz", precio: "$2.500" },
-      { nombre: "Porción de calentado", precio: "$2.500" },
-      { nombre: "Porción de carne o pollo desmechado", precio: "$2.500" },
-      { nombre: "Porción de costilla", precio: "$2.500" },
-      { nombre: "Porción de bistec", precio: "$2.500" },
-      { nombre: "Adición de queso o jamón", precio: "$2.500" },
-      { nombre: "Adición de huevo", precio: "$2.500" },
-      { nombre: "Huevos al gusto solos", precio: "$2.500" },
-      { nombre: "Huevos rancheros solos", precio: "$2.500" },
-      { nombre: "Pan o calado", precio: "$2.500" },
-      { nombre: "Salchicha ranchera", precio: "$2.500" },
-      { nombre: "Porción de papa francesa", precio: "$2.500" },
-      { nombre: "Porción de papa salada", precio: "$2.500" },
-      { nombre: "Porción de chicharrón", precio: "$2.500" },
-      { nombre: "Hamburguesa sola", precio: "$2.500" },
+      { nombre: "Porción de arroz", precio: "$2.500", foto: "adicion-arroz.png" },
+      { nombre: "Porción de calentado", precio: "$9.000", foto: "adicion-calentado.png" },
+      { nombre: "Porción de carne o pollo desmechado", precio: "$9.500", foto: "adicion-carne.png" },
+      { nombre: "Porción de costilla", precio: "$7.000", foto: "adicion-costilla.png" },
+      { nombre: "Porción de bistec", precio: "$9.000", foto: "adicion-bistec.png" },
+      { nombre: "Adición de queso o jamón", precio: "$3.000", foto: "adicion-queso.png" },
+      { nombre: "Adición de huevo", precio: "$2.500", foto: "adicion-huevo.png" },
+      { nombre: "Huevos al gusto solos", precio: "$6.000", foto: "adicion-huevos.png" },
+      { nombre: "Huevos rancheros solos", precio: "$7.500", foto: "adicion-rancheros.png" },
+      { nombre: "Pan o calado", precio: "$700", foto: "adicion-pan.png" },
+      { nombre: "Salchicha ranchera", precio: "$2.500", foto: "adicion-salchicha.png" },
+      { nombre: "Porción de papa francesa", precio: "$6.000", foto: "adicion-papa-francesa.png" },
+      { nombre: "Porción de papa salada", precio: "$2.500", foto: "adicion-papa-salada.png" },
+      { nombre: "Porción de chicharrón", precio: "$8.000", foto: "adicion-chicharron.png" },
     ],
   },
   {
@@ -386,36 +386,36 @@ export const menu: MenuCategory[] = [
     titulo: "Bebidas calientes",
     emoji: "☕",
     items: [
-      { nombre: "Tinto", precio: "$1.300" },
-      { nombre: "Perico", precio: "$1.600" },
-      { nombre: "Aromática", precio: "$1.300" },
-      { nombre: "Café", precio: "$3.200" },
+      { nombre: "Tinto", precio: "$1.300", foto: "tinto.png" },
+      { nombre: "Perico", precio: "$1.600", foto: "perico.png" },
+      { nombre: "Aromática", precio: "$1.300", foto: "aromatica.png" },
+      { nombre: "Café", precio: "$3.200", foto: "cafe.png" },
       {
         nombre: "Chocolate",
         precio: "$3.200",
         foto: "chocolate.png",
       },
-      { nombre: "Milo caliente", precio: "$4.300" },
+      { nombre: "Milo caliente", precio: "$4.300", foto: "milo.png" },
     ],
   },
   {
     id: "jugos",
     titulo: "Jugos",
     emoji: "🥤",
-    nota: "Con agua $5.500 · Con leche $6.500 · Maracuyá $6.500 / $7.500 · Milo frío $7.000",
+    nota: "Agua $5.500 · Leche $6.500 · Maracuyá $6.500 / $7.500 · Milo frío $7.000",
     items: [
-      { nombre: "Naranja", foto: "jugo-naranja.png" },
-      { nombre: "Guanábana", foto: "jugo-guanabana.png" },
-      { nombre: "Guayaba" },
-      { nombre: "Mango" },
-      { nombre: "Mora" },
-      { nombre: "Curuba" },
-      { nombre: "Fresa" },
-      { nombre: "Feijoa" },
-      { nombre: "Tomaté" },
-      { nombre: "Lulo" },
-      { nombre: "Maracuyá" },
-      { nombre: "Limonada", foto: "limonada.png" },
+      { nombre: "Naranja", precio: "$5.500", foto: "jugo-naranja.png" },
+      { nombre: "Guanábana", precio: "$5.500", foto: "jugo-guanabana.png" },
+      { nombre: "Guayaba", precio: "$5.500", foto: "jugo-guayaba.png" },
+      { nombre: "Mango", precio: "$5.500", foto: "jugo-mango.png" },
+      { nombre: "Mora", precio: "$5.500", foto: "jugo-mora.png" },
+      { nombre: "Curuba", precio: "$5.500", foto: "jugo-curuba.png" },
+      { nombre: "Fresa", precio: "$5.500", foto: "jugo-fresa.png" },
+      { nombre: "Feijoa", precio: "$5.500", foto: "jugo-feijoa.png" },
+      { nombre: "Tomaté", precio: "$5.500", foto: "jugo-tomate.png" },
+      { nombre: "Lulo", precio: "$5.500", foto: "jugo-lulo.png" },
+      { nombre: "Maracuyá", precio: "$6.500", foto: "jugo-maracuya.png" },
+      { nombre: "Limonada", precio: "$5.500", foto: "limonada.png" },
     ],
   },
   {
@@ -424,18 +424,18 @@ export const menu: MenuCategory[] = [
     emoji: "🥫",
     items: [
       { nombre: "Postobón 250 ml", precio: "$4.300", foto: "postobon.png" },
-      { nombre: "Postobón 350 ml", precio: "$4.300" },
+      { nombre: "Postobón 350 ml", precio: "$4.300", foto: "postobon.png" },
       {
         nombre: "Postobón para llevar 250 ml",
         precio: "$4.300",
         foto: "postobon-colombiana.png",
       },
-      { nombre: "Postobón 1.5 L", precio: "$4.300" },
-      { nombre: "Coca-cola 250 ml", precio: "$4.300" },
-      { nombre: "Coca-cola 600 ml", precio: "$4.300" },
-      { nombre: "Coca-cola 1.5 L", precio: "$4.300" },
-      { nombre: "Coca-cola 2.5 L", precio: "$4.300" },
-      { nombre: "Coca-cola para llevar 250 ml", precio: "$4.300" },
+      { nombre: "Postobón 1.5 L", precio: "$4.300", foto: "postobon.png" },
+      { nombre: "Coca-cola 250 ml", precio: "$4.300", foto: "gaseosa.png" },
+      { nombre: "Coca-cola 600 ml", precio: "$4.300", foto: "gaseosa.png" },
+      { nombre: "Coca-cola 1.5 L", precio: "$4.300", foto: "gaseosa.png" },
+      { nombre: "Coca-cola 2.5 L", precio: "$4.300", foto: "gaseosa.png" },
+      { nombre: "Coca-cola para llevar 250 ml", precio: "$4.300", foto: "gaseosa.png" },
     ],
   },
 ];
@@ -444,7 +444,7 @@ export const negocio = {
   nombre: "Su Punto Para Que Coma",
   lema: "Desde 2010",
   descripcion:
-    "Arepas paisas, caldos, bandejas y antojos hechos con cariño. El punto donde siempre quieres volver a comer.",
+    "Arepas preparadas desde cero y cocinadas al carbón, caldos, bandejas y antojos hechos con cariño. El punto donde siempre quieres volver a comer.",
   direccion: "Cra 81A # 13-15",
   telefono: "301 648 9977",
   whatsapp: "https://wa.me/573016489977",

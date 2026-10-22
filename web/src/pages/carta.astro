@@ -2,14 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import LibroCarta from "../components/LibroCarta.astro";
 import { negocio } from "../data/menu";
 
 const base = import.meta.env.BASE_URL;
 const pdf = `${base}carta/carta.pdf`;
-const paginas = [
-  { src: `${base}carta/pagina-1.webp`, alt: "Primera página de la carta" },
-  { src: `${base}carta/pagina-2.webp`, alt: "Segunda página de la carta" },
-];
 ---
 
 <BaseLayout titulo={`Carta — ${negocio.nombre}`}>
@@ -33,8 +30,8 @@ const paginas = [
       <span class="seccion__cinta">Carta</span>
       <h1 class="carta__titulo">Nuestra carta completa</h1>
       <p class="carta__lead">
-        Desliza para ver la carta. Toca cualquier página para abrir el PDF y
-        hacer zoom, o descárgala para leerla cuando quieras.
+        Hojea nuestra carta como un libro. Desliza, toca las esquinas o usa las
+        flechas; también puedes abrir el PDF para hacer zoom o descargarla.
       </p>
 
       <div class="carta__acciones">
@@ -46,29 +43,7 @@ const paginas = [
         </a>
       </div>
 
-      <div class="carta__paginas">
-        {
-          paginas.map((pagina, i) => (
-            <a
-              class="carta__pagina"
-              href={pdf}
-              target="_blank"
-              rel="noopener"
-              aria-label={`Abrir el PDF: ${pagina.alt}`}
-            >
-              <img
-                src={pagina.src}
-                alt={pagina.alt}
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-              />
-              <span class="carta__zoom" aria-hidden="true">
-                Toca para abrir el PDF y ampliar
-              </span>
-            </a>
-          ))
-        }
-      </div>
+      <LibroCarta />
     </div>
   </main>
 
@@ -81,7 +56,8 @@ const paginas = [
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--amarillo);
+    background: rgba(21, 21, 21, 0.94);
+    backdrop-filter: blur(10px);
     border-bottom: var(--borde);
   }
   .carta-bar__inner {
@@ -94,22 +70,26 @@ const paginas = [
   .carta-bar__volver {
     justify-self: start;
     font-family: var(--fuente-titulo);
-    font-weight: 700;
+    font-weight: 400;
     text-decoration: none;
-    background: var(--crema);
+    color: var(--tiza);
+    background: transparent;
     border: var(--borde-fino);
     border-radius: 999px;
-    padding: 0.35rem 0.9rem;
-    font-size: 0.9rem;
+    padding: 0.32rem 0.9rem;
+    font-size: 0.95rem;
   }
   .carta-bar__volver:hover {
-    background: var(--rojo);
-    color: var(--blanco);
+    background: var(--amarillo);
+    border-color: var(--amarillo);
+    color: var(--negro);
   }
   .carta-bar__titulo {
     font-family: var(--fuente-titulo);
-    font-weight: 800;
-    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    font-size: 1.12rem;
+    color: var(--amarillo);
     text-align: center;
   }
   .carta-bar__pdf {
@@ -123,56 +103,28 @@ const paginas = [
   }
 
   .carta {
-    background: var(--crema);
+    background: transparent;
     padding-block: 1.6rem 3rem;
   }
   .carta__titulo {
     font-size: clamp(1.8rem, 7vw, 3rem);
+    font-weight: 400;
     text-transform: uppercase;
+    color: var(--tiza);
+    text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
     margin-bottom: 0.4rem;
   }
   .carta__lead {
     max-width: 44rem;
     font-weight: 600;
-    color: #4a3f10;
+    color: var(--tiza-suave);
     margin-bottom: 1.1rem;
   }
   .carta__acciones {
     display: flex;
     flex-wrap: wrap;
     gap: 0.7rem;
-    margin-bottom: 1.4rem;
-  }
-  .carta__paginas {
-    display: grid;
-    gap: 1rem;
-  }
-  .carta__pagina {
-    position: relative;
-    display: block;
-    border: var(--borde);
-    border-radius: var(--radio-chico);
-    box-shadow: var(--sombra-chica);
-    overflow: hidden;
-    background: var(--blanco);
-    line-height: 0;
-  }
-  .carta__pagina img {
-    width: 100%;
-    height: auto;
-  }
-  .carta__zoom {
-    position: absolute;
-    right: 0.6rem;
-    bottom: 0.6rem;
-    background: var(--negro);
-    color: var(--amarillo);
-    font-family: var(--fuente-titulo);
-    font-weight: 700;
-    font-size: 0.78rem;
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
-    line-height: 1.2;
+    margin-bottom: 0.4rem;
   }
 
   @media (min-width: 900px) {
