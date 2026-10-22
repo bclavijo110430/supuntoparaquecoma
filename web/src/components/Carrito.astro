@@ -48,6 +48,50 @@ import { negocio } from "../data/menu";
         Tu pedido está vacío. Añade algo del menú 😋
       </p>
       <ul class="carrito-lista" data-carrito-lista hidden></ul>
+
+      <div class="carrito-datos" data-carrito-datos hidden>
+        <h3 class="carrito-datos__titulo">Datos de envío</h3>
+        <label class="carrito-campo">
+          <span>Nombre</span>
+          <input
+            type="text"
+            name="nombre"
+            data-carrito-nombre
+            autocomplete="name"
+            placeholder="Tu nombre"
+            aria-describedby="carrito-nombre-error"
+            required
+          />
+          <small
+            class="carrito-campo__error"
+            id="carrito-nombre-error"
+            data-carrito-nombre-error
+            hidden
+          >
+            Escribe tu nombre para enviar el pedido.
+          </small>
+        </label>
+        <label class="carrito-campo">
+          <span>Dirección de envío</span>
+          <input
+            type="text"
+            name="direccion"
+            data-carrito-direccion
+            autocomplete="street-address"
+            placeholder="Calle, número, barrio"
+            aria-describedby="carrito-direccion-error"
+            required
+          />
+          <small
+            class="carrito-campo__error"
+            id="carrito-direccion-error"
+            data-carrito-direccion-error
+            hidden
+          >
+            Escribe la dirección de envío para enviar el pedido.
+          </small>
+        </label>
+      </div>
     </div>
 
     <footer class="carrito-panel__pie">
@@ -55,6 +99,9 @@ import { negocio } from "../data/menu";
         <span>Total</span>
         <b data-carrito-total>$0</b>
       </div>
+      <p class="carrito-aviso" data-carrito-aviso hidden>
+        Completa tu nombre y dirección de envío para continuar.
+      </p>
       <button
         class="btn btn--wa carrito-enviar"
         type="button"

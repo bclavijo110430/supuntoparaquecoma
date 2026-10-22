@@ -1,0 +1,586 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { negocio } from "../data/menu";
+
+const base = import.meta.env.BASE_URL;
+const pagina1 = `${base}carta/pagina-1.webp`;
+const pagina2 = `${base}carta/pagina-2.webp`;
+---
+
+<div class="libro" data-libro-seccion>
+  <div class="libro__escenario">
+    <button
+      class="libro__flecha libro__flecha--lateral libro__flecha--antes"
+      type="button"
+      data-libro-antes
+      aria-label="Hoja anterior"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="libro__cuerpo" id="libro-carta" data-libro>
+      <article class="hoja hoja--guardas">
+        <div class="hoja__marco hoja__marco--guardas">
+          <Image
+            class="guardas__logo"
+            src={logo}
+            alt=""
+            width={180}
+            height={180}
+            loading="lazy"
+          />
+          <span class="guardas__titulo">Nuestra carta</span>
+          <span class="guardas__lema">Arepas y comida paisa</span>
+        </div>
+      </article>
+
+      <article class="hoja" data-density="hard">
+        <div class="hoja__marco">
+          <img
+            class="hoja__imagen hoja__imagen--derecha"
+            src={pagina2}
+            alt="Portada de la carta de Su Punto Para Que Coma, desde 2010"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </article>
+
+      <article class="hoja">
+        <div class="hoja__marco">
+          <img
+            class="hoja__imagen hoja__imagen--izquierda"
+            src={pagina1}
+            alt="Carta: entradas, caldos, bandejas y arepas sencillas"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </article>
+
+      <article class="hoja">
+        <div class="hoja__marco">
+          <img
+            class="hoja__imagen hoja__imagen--derecha"
+            src={pagina1}
+            alt="Carta: arepas, arepas especiales y bandejas especiales"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </article>
+
+      <article class="hoja">
+        <div class="hoja__marco">
+          <img
+            class="hoja__imagen hoja__imagen--izquierda"
+            src={pagina2}
+            alt="Carta: menú infantil, bebidas, jugos y adiciones"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </article>
+
+      <article class="hoja hoja--contra">
+        <div class="hoja__marco hoja__marco--contra">
+          <Image
+            class="contra__logo"
+            src={logo}
+            alt=""
+            width={180}
+            height={180}
+            loading="lazy"
+          />
+          <span class="contra__lema">{negocio.lema}</span>
+          <h2 class="contra__titulo">Gracias<br />por venir</h2>
+          <span class="contra__linea" aria-hidden="true"></span>
+          <p class="contra__texto">
+            Te esperamos con el mismo sabor de siempre. ¡Buen provecho!
+          </p>
+          <div class="contra__datos">
+            <span>{negocio.direccion}</span>
+            <a href={negocio.whatsapp} target="_blank" rel="noopener">
+              {negocio.telefono}
+            </a>
+            <span class="contra__handle">{negocio.handle}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <button
+      class="libro__flecha libro__flecha--lateral libro__flecha--despues"
+      type="button"
+      data-libro-despues
+      aria-label="Hoja siguiente"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="libro__barra">
+    <button
+      class="libro__flecha libro__flecha--barra"
+      type="button"
+      data-libro-antes
+      aria-label="Hoja anterior"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="libro__info">
+      <span class="libro__contador" data-libro-contador aria-live="polite">
+        Portada
+      </span>
+      <span class="libro__pista" data-libro-pista>
+        Toca la portada o usa las flechas para abrir
+      </span>
+    </div>
+
+    <button
+      class="libro__flecha libro__flecha--barra"
+      type="button"
+      data-libro-despues
+      aria-label="Hoja siguiente"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .libro {
+    margin-top: 1.4rem;
+  }
+
+  .libro__escenario {
+    position: relative;
+    padding-block: 0.6rem 1rem;
+  }
+  .libro__escenario::before {
+    content: "";
+    position: absolute;
+    inset: 2% -2% 0;
+    background: radial-gradient(
+      58% 52% at 50% 42%,
+      rgba(255, 210, 31, 0.09),
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+
+  .libro__cuerpo {
+    position: relative;
+    z-index: 1;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin-inline: auto;
+  }
+  .libro__cuerpo:not(.stf__parent) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .libro__cuerpo:not(.stf__parent) .hoja {
+    position: relative;
+    aspect-ratio: 800 / 1296;
+    border: var(--borde);
+    border-radius: var(--radio-chico);
+    overflow: hidden;
+  }
+  .libro:not(.libro--listo) .libro__flecha {
+    display: none;
+  }
+
+  .hoja {
+    background: #0b0b0b;
+    overflow: hidden;
+    cursor: grab;
+  }
+  .hoja:active {
+    cursor: grabbing;
+  }
+
+  .hoja__marco {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0b0b0b;
+    border-radius: 2px;
+  }
+
+  .hoja__imagen {
+    position: absolute;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    max-width: none;
+    object-fit: fill;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .hoja__imagen--izquierda {
+    left: 0;
+  }
+  .hoja__imagen--derecha {
+    right: 0;
+  }
+
+  .hoja__marco--guardas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5cqw;
+    padding: 10%;
+    text-align: center;
+    container-type: inline-size;
+    background:
+      radial-gradient(
+        circle at 50% 38%,
+        rgba(255, 210, 31, 0.09),
+        transparent 62%
+      ),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.013) 0 1px,
+        transparent 1px 14px
+      ),
+      #0d0d0d;
+    color: var(--tiza);
+  }
+  .hoja__marco--guardas::before {
+    content: "";
+    position: absolute;
+    inset: 4.5cqw;
+    border: 2px dashed rgba(255, 210, 31, 0.22);
+    border-radius: 2cqw;
+    pointer-events: none;
+  }
+
+  .guardas__logo {
+    width: 38cqw;
+    height: auto;
+    opacity: 0.55;
+    filter: drop-shadow(0 0 5cqw rgba(255, 210, 31, 0.18));
+  }
+  .guardas__titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 8cqw;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--amarillo);
+  }
+  .guardas__lema {
+    font-size: 4cqw;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tiza-suave);
+  }
+
+  .hoja__marco--contra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4cqw;
+    padding: 9% 8%;
+    text-align: center;
+    container-type: inline-size;
+    background:
+      radial-gradient(
+        70% 45% at 50% 0%,
+        rgba(255, 210, 31, 0.14),
+        transparent 70%
+      ),
+      radial-gradient(
+        70% 45% at 50% 100%,
+        rgba(216, 31, 38, 0.18),
+        transparent 70%
+      ),
+      #101010;
+    color: var(--tiza);
+  }
+  .hoja__marco--contra::before {
+    content: "";
+    position: absolute;
+    inset: 4.5cqw;
+    border: 2px dashed rgba(255, 210, 31, 0.35);
+    border-radius: 2cqw;
+    pointer-events: none;
+  }
+
+  .contra__logo {
+    width: 30cqw;
+    height: auto;
+    filter: drop-shadow(0 0 4cqw rgba(255, 210, 31, 0.25));
+  }
+  .contra__lema {
+    font-family: var(--fuente-titulo);
+    font-size: 4cqw;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amarillo);
+  }
+  .contra__titulo {
+    margin: 0;
+    font-family: var(--fuente-titulo);
+    font-weight: 400;
+    font-size: 11cqw;
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--amarillo);
+    text-shadow: 0 0.4cqw 0 #8a6a00, 0 2cqw 4cqw rgba(0, 0, 0, 0.5);
+  }
+  .contra__linea {
+    width: 34%;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--rojo), transparent);
+  }
+  .contra__texto {
+    max-width: 84%;
+    font-size: 4.4cqw;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--tiza-suave);
+  }
+  .contra__datos {
+    display: grid;
+    gap: 1.2cqw;
+    margin-top: 1cqw;
+    font-size: 4.2cqw;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .contra__datos a {
+    color: var(--tiza);
+    text-underline-offset: 0.6cqw;
+  }
+  .contra__handle {
+    font-family: var(--fuente-titulo);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--amarillo);
+  }
+
+  .libro__barra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 1.1rem;
+  }
+  .libro__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.12rem;
+    min-width: 0;
+    text-align: center;
+  }
+  .libro__contador {
+    font-family: var(--fuente-titulo);
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+    color: var(--amarillo);
+  }
+  .libro__pista {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--tiza-suave);
+  }
+
+  .libro__flecha {
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(21, 21, 21, 0.9);
+    color: var(--amarillo);
+    border: var(--borde-fino);
+    border-radius: 999px;
+    box-shadow: var(--sombra-chica);
+    cursor: pointer;
+    transition:
+      transform 0.12s ease,
+      background 0.12s ease,
+      color 0.12s ease,
+      opacity 0.12s ease;
+  }
+  .libro__flecha svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .libro__flecha:hover:not(:disabled) {
+    background: var(--amarillo);
+    color: var(--negro);
+    transform: translateY(-2px);
+  }
+  .libro__flecha:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .libro__flecha--lateral {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    display: none;
+    transform: translateY(-50%);
+  }
+  .libro__flecha--antes.libro__flecha--lateral {
+    left: -0.75rem;
+  }
+  .libro__flecha--despues.libro__flecha--lateral {
+    right: -0.75rem;
+  }
+
+  @media (min-width: 1000px) {
+    .libro__flecha--lateral {
+      display: inline-flex;
+    }
+    .libro__flecha--barra {
+      display: none;
+    }
+    .libro__barra {
+      margin-top: 1rem;
+    }
+  }
+</style>
+
+<script>
+  import { PageFlip } from "page-flip";
+
+  const seccion = document.querySelector<HTMLElement>("[data-libro-seccion]");
+
+  if (seccion) {
+    const contenedor = seccion.querySelector<HTMLElement>("[data-libro]");
+    const hojas = contenedor
+      ? Array.from(contenedor.querySelectorAll<HTMLElement>(".hoja"))
+      : [];
+    const botonesAntes = Array.from(
+      seccion.querySelectorAll<HTMLButtonElement>("[data-libro-antes]"),
+    );
+    const botonesDespues = Array.from(
+      seccion.querySelectorAll<HTMLButtonElement>("[data-libro-despues]"),
+    );
+    const contador = seccion.querySelector<HTMLElement>(
+      "[data-libro-contador]",
+    );
+    const pista = seccion.querySelector<HTMLElement>("[data-libro-pista]");
+
+    if (contenedor && hojas.length > 0) {
+      const movimientoReducido = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      const libro = new PageFlip(contenedor, {
+        width: 800,
+        height: 1296,
+        size: "stretch",
+        minWidth: 460,
+        maxWidth: 540,
+        minHeight: 100,
+        maxHeight: 1200,
+        startPage: 1,
+        showCover: false,
+        usePortrait: true,
+        drawShadow: true,
+        flippingTime: movimientoReducido ? 150 : 820,
+        maxShadowOpacity: 0.55,
+        mobileScrollSupport: true,
+        swipeDistance: 24,
+        startZIndex: 10,
+        useMouseEvents: true,
+        showPageCorners: true,
+        clickEventForward: true,
+      });
+
+      const total = hojas.length;
+      const totalCarta = total - 3;
+
+      const actualizar = () => {
+        seccion.classList.add("libro--listo");
+        const indice = libro.getCurrentPageIndex();
+        const retrato = libro.getOrientation() === "portrait";
+        const totalVistas = retrato ? total : Math.ceil(total / 2);
+        const vistaActual = retrato
+          ? indice
+          : indice === 0
+            ? 0
+            : Math.ceil(indice / 2);
+        const ultimaVista = totalVistas - 1;
+
+        if (contador) {
+          if (retrato) {
+            if (indice === 0) {
+              contador.textContent = "Portada interior";
+            } else if (indice === 1) {
+              contador.textContent = "Portada";
+            } else if (indice >= total - 1) {
+              contador.textContent = "Contraportada";
+            } else {
+              contador.textContent = `Página ${indice - 1} de ${totalCarta}`;
+            }
+          } else if (vistaActual === 0) {
+            contador.textContent = "Portada";
+          } else if (vistaActual >= ultimaVista) {
+            contador.textContent = "Página 3 y contraportada";
+          } else {
+            contador.textContent = "Páginas 1 y 2";
+          }
+        }
+
+        if (pista) {
+          pista.textContent =
+            vistaActual === 0
+              ? "Toca la portada o usa las flechas para abrir"
+              : vistaActual >= ultimaVista
+                ? "Fin de la carta · abre el PDF para hacer zoom"
+                : "Desliza o usa las flechas para hojear";
+        }
+
+        botonesAntes.forEach((boton) => {
+          boton.disabled = vistaActual <= 0;
+        });
+        botonesDespues.forEach((boton) => {
+          boton.disabled = vistaActual >= ultimaVista;
+        });
+      };
+
+      libro.on("init", actualizar);
+      libro.on("flip", actualizar);
+      libro.on("changeOrientation", (evento) => {
+        if (evento.data === "portrait" && libro.getCurrentPageIndex() === 0) {
+          libro.turnToPage(1);
+        }
+        actualizar();
+      });
+
+      botonesAntes.forEach((boton) => {
+        boton.addEventListener("click", () => libro.flipPrev());
+      });
+      botonesDespues.forEach((boton) => {
+        boton.addEventListener("click", () => libro.flipNext());
+      });
+
+      libro.loadFromHTML(hojas);
+    }
+  }
+</script>
